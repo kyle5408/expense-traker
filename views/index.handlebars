@@ -29,7 +29,6 @@
       <div class="container">
         <ul class="list-group">
           <li class="list-group-item">
-
             <div class=" d-flex align-items-center">
               <div class="col-2 " style="padding:0">
                 <i class="{{ this.icon }}" style="font-size:40px;color:lightblue"></i>
@@ -71,3 +70,13 @@
     {{/each}}
 
   </div>
+
+  {{!-- 控制List顏色 --}}
+  <script>
+    const list = document.querySelectorAll('li')
+    for (let i = 0; i < list.length; i++) {
+      if (i % 2 === 1) {
+        list[i].style.background = "#E0E0E0"
+      }
+    }
+  </script>
