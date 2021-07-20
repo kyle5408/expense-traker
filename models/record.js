@@ -6,6 +6,11 @@ const recordSchema = new Schema({
     type: String,
     require: true,
   },
+  icon: {
+    type: String,
+    require: true,
+  }
+  ,
   category: {
     type: String,
     require: true,

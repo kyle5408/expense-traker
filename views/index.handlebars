@@ -1,22 +1,55 @@
-<ul class="list-group">
-  {{#each records}}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-auto mr-auto">
-        <input style="vertical-align: middle;" type="checkbox" name="isDone" {{#if this.isDone }} checked {{/if}}
-          disabled>
-        <h4 style="display: inline; vertical-align: middle;">
-          {{ this.name }}
-        </h4>
-      </div>
-      <div class="col-auto">
-        <a class="btn btn-secondary" href="./todos/{{ this._id }}">detail</a>
-        <a class="btn btn-success" href="./todos/{{ this._id }}/edit">edit</a>
-        <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-danger" type="submit">delete</button>
-        </form>
-      </div>
+{{!-- Dropdowns --}}
+<div class="container">
+  <div class="col-auto mr-auto">
+    <select>
+      <option>類別</option>
+      {{#each categories}}
+      <option>{{ this.name }}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class="mt-3 d-flex justify-content-between">
+    <div style=" font-weight: bold;font-size: 40px">
+      總金額：
     </div>
-  </li>
-  {{/each}}
-</ul>
+    <div class="text-align-center" style=" color: orange; font-weight: bold; font-size: 120px ">
+      25260
+    </div>
+
+  </div>
+
+
+
+
+  <div class="mt-3">
+    <ul class="list-group">
+      {{#each records}}
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-auto mr-auto d-flex">
+
+            <div class="mr-3">
+              <i class="{{ this.icon }}" style="font-size:40px;color:aqua;vertical-align:middle"></i>
+            </div>
+            <div class="ml-3" style="align-items: center;">
+              <h4 style="display: inline; align-items: center;">
+                {{ this.name }}
+              </h4>
+            </div>
+
+          </div>
+          <div class="col-auto">
+            <a class="btn btn-secondary" href="./todos/{{ this._id }}">detail</a>
+            <a class="btn btn-success" href="./todos/{{ this._id }}/edit">edit</a>
+            <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+              <button class="btn btn-danger" type="submit">delete</button>
+            </form>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+
+  </div>
+</div>
