@@ -26,23 +26,25 @@
     <ul class="list-group">
       {{#each records}}
       <li class="list-group-item">
-        <div class="row">
-          <div class="col-auto mr-auto d-flex">
+        <div class="row" style="align-items: center">
+          <div class="mr-auto">
 
-            <div class="mr-3">
-              <i class="{{ this.icon }}" style="font-size:40px;color:aqua;vertical-align:middle"></i>
+            <div class="mr-3 col-auto  d-flex">
+              <i class="{{ this.icon }}" style="font-size:40px;color:aqua;"></i>
+              <div>
+                <h4 style="display: inline; align-items: center;">
+                  {{ this.name }}
+                </h4>
+                <p>
+                  {{ this.date }}
+                </p>
+              </div>
             </div>
-            <div class="ml-3" style="align-items: center;">
-              <h4 style="display: inline; align-items: center;">
-                {{ this.name }}
-              </h4>
-            </div>
-
           </div>
+
           <div class="col-auto">
-            <a class="btn btn-secondary" href="./todos/{{ this._id }}">detail</a>
-            <a class="btn btn-success" href="./todos/{{ this._id }}/edit">edit</a>
-            <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+            <a class="btn btn-success" href="./records/{{ this._id }}/edit">edit</a>
+            <form action="./records/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
               <button class="btn btn-danger" type="submit">delete</button>
             </form>
           </div>
