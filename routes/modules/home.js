@@ -11,7 +11,6 @@ router.get('/', (req, res) => {
     .lean()
     .sort({ _id: 'asc' })
     .then(records => {
-
       records.forEach(record => {
         totalAmount += record.amount
         record.date = moment(record.date).format('YYYY-MM-DD')
@@ -21,7 +20,6 @@ router.get('/', (req, res) => {
             record.icon = category.icon
           }
         })
-
       })
       res.render('index', { records, totalAmount, categories })
     })
