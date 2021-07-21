@@ -3,30 +3,35 @@
     {
       "name": "買菸",
       "category": "休閒娛樂",
+      "icon": "fas fa-grin-beam",
       "date": "2021/7/20",
       "amount": "100"
     },
     {
       "name": "加油",
       "category": "交通出行",
+      "icon": "fas fa-shuttle-van",
       "date": "2021/7/16",
       "amount": "1800"
     },
     {
       "name": "胡椒餅",
       "category": "餐飲食品",
+      "icon": "fas fa-utensils",
       "date": "2021/7/17",
       "amount": "60"
     },
     {
       "name": "不鏽鋼餐盤",
       "category": "家居物業",
+      "icon": "fas fa-home",
       "date": "2021/7/19",
       "amount": "150"
     },
     {
       "name": "江湖救急",
       "category": "其他",
+      "icon": "fas fa-pen",
       "date": "2021/7/27",
       "amount": "2500"
     }
