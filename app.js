@@ -8,7 +8,14 @@ require('./config/mongoose')
 
 const PORT = process.env.PORT || 3000
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main', helpers: {
+    isEqual: function (arg1, arg2) {
+      return arg1 === arg2
+    }
+  }
+}
+))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 

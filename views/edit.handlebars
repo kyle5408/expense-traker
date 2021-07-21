@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <div class="col-md-6 d-flex justify-content-center">
+    <div class="col-auto">
+      *必填欄位
+    </div>
+    <div class="ml-0 col-auto text-align-center">
+      <h3>請修改你的支出</h3>
+    </div>
+  </div>
+
+  <form action="/records/{{ record._id }}?_method=PUT" method="POST" class="mt-3">
+    <div class="row mb-3">
+      <label for="inputName" class="form-label col-12 col-md-2" style="font-size: 20px">名稱* :</label>
+      <input type="string" class="form-control ml-2  col-12 col-md-8" id="inputName" value={{record.name}}>
+    </div>
+
+    <form class="mt-3">
+      <div class="row mb-3">
+        <label for="inputDate" class="form-label col-12 col-md-2" style="font-size: 20px">日期* :</label>
+        <input type="date" class="form-control ml-2  col-12 col-md-8" id="inputDate" value={{record.date}}>
+      </div>
+
+
+      <div class="row  mb-3">
+        <label for="inputCategory" class="form-label col-12 col-md-2" style="font-size: 20px">類別* :</label>
+        <select id="inputCategory" class="form-select form-control ml-2  col-12 col-md-8">
+          {{!-- 為何自定義handlebars helper無法比較兩個變數? --}}
+          <option>Select</option>
+          <option {{#if (isEqual record.category '家居物業' )}}selected{{/if}}> 家居物業
+          </option>
+          <option {{#if (isEqual record.category '交通出行' )}}selected{{/if}}> 交通出行
+          </option>
+          <option {{#if (isEqual record.category '休閒娛樂' )}}selected{{/if}}> 休閒娛樂
+          </option>
+          <option {{#if (isEqual record.category '餐飲食品' )}}selected{{/if}}> 餐飲食品
+          </option>
+          <option {{#if (isEqual record.category '其他' )}}selected{{/if}}> 其他
+          </option>
+        </select>
+      </div>
+
+
+      <form class="mt-3">
+        <div class="row mb-3">
+          <label for="inputAmount" class="form-label col-12 col-md-2" style="font-size: 20px">金額* :</label>
+          <input type="number" class="form-control ml-2  col-12 col-md-8" id="inputAmount" value={{record.amount}}>
+        </div>
+
+        <div class="col-12 mt-3 " style="text-align:center;">
+
+          <button type="submit" class="btn btn-primary">新增支出</button>
+        </div>
+      </form>

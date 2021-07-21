@@ -5,7 +5,7 @@ const records = require('./modules/records')
 
 
 router.use('/', home)
-// router.use('/records', records)
+router.use('/records', records)
 
 
 module.exports = router

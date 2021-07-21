@@ -16,8 +16,7 @@ const recordSchema = new Schema({
     require: true,
   },
   date: {
-    type: String,
-    format: Date,
+    type: Date,
     require: true,
   },
   amount: {
