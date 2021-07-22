@@ -14,25 +14,7 @@ router.post('/', (req, res) => {
     .sort({ _id: 'asc' })
     .then(records => {
       if (req.body.category === "Select") {
-        let totalAmount = 0
-        Record.find()
-          .lean()
-          .sort({ _id: 'asc' })
-          .then(records => {
-            records.forEach(record => {
-              totalAmount += record.amount
-              record.date = moment(record.date).format('YYYY-MM-DD')
-              //icon對照
-              categories.forEach(category => {
-                if (category.name === record.category) {
-                  record.icon = category.icon
-                }
-              })
-            })
-            res.render('index', { records, totalAmount })
-          })
-          .catch(error => console.error(error))
-
+        res.redirect('/')
       } else {
         //篩選
         const recordsFilter = records.filter(record => {

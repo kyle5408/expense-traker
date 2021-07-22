@@ -52,7 +52,7 @@ checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
         record.amount = req.body.amount
         return record.save()
       })
-      .then(() => res.redirect(`/`))
+      .then(() => res.redirect('/'))
       .catch(error => console.log(error))
   }
 })
