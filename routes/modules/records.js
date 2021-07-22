@@ -6,6 +6,11 @@ const Record = require('../../models/record')
 const Category = require('../../config/category.json')
 const categories = Category.results
 
+const { buildCheckFunction } = require('express-validator')
+const checkParams = buildCheckFunction(['body', 'query', 'params'])
+const validationResult = require('express-validator').validationResult
+
+
 //edit
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
@@ -47,12 +52,27 @@ router.get('/new', (req, res) => {
   return res.render('new', { categories })
 })
 
-router.post('/', (req, res) => {
-  const { name, date, category, amount } = req.body
-  Record.create({ name, date, category, amount })
-    .then(() => res.redirect('/'))
-    .catch(error =>
-      console.log(error))
+router.post('/', [checkParams('name', '建立失敗：未輸入名稱').isLength({ min: 1 }),
+checkParams('date', '建立失敗：未選擇日期').isLength({ min: 1 }),
+checkParams('category', '建立失敗：未選擇類別').custom(value => value !== "Select"),
+checkParams('amount', '建立失敗：金額錯誤').custom(value => value > 0)
+], (req, res) => {
+  const errorsResult = validationResult(req)
+  if (!errorsResult.isEmpty()) {
+    const { name, date, category, amount } = req.body
+    const errorMsg = errorsResult.array()
+    res.render('new', {
+      name, date, category, amount,
+      errorMsg: errorMsg
+    })
+    return
+  } else {
+    const { name, date, category, amount } = req.body
+    Record.create({ name, date, category, amount })
+      .then(() => res.redirect('/'))
+      .catch(error =>
+        console.log(error))
+  }
 }
 )
 
