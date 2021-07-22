@@ -1,12 +1,23 @@
 {{!-- Dropdowns --}}
 <div class="container">
-  <div class="col-auto mr-auto">
-    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 80%">
-      <option>類別</option>
-      {{#each categories}}
-      <option>{{ this.name }}</option>
-      {{/each}}
-    </select>
+  <div name="filter-form" class="col-auto mr-auto">
+    <form action="/filter" method="POST">
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 80%"
+        onchange="submit()" name="category">
+        {{!-- 為何自定義handlebars helper無法比較兩個變數? --}}
+        <option>Select</option>
+        <option {{#if (isEqual categoryFilter '家居物業' )}}selected{{/if}}> 家居物業
+        </option>
+        <option {{#if (isEqual categoryFilter '交通出行' )}}selected{{/if}}> 交通出行
+        </option>
+        <option {{#if (isEqual categoryFilter '休閒娛樂' )}}selected{{/if}}> 休閒娛樂
+        </option>
+        <option {{#if (isEqual categoryFilter '餐飲食品' )}}selected{{/if}}> 餐飲食品
+        </option>
+        <option {{#if (isEqual categoryFilter '其他' )}}selected{{/if}}> 其他
+        </option>
+      </select>
+    </form>
   </div>
 
   <div class="row mt-3">

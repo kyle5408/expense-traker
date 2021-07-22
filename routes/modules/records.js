@@ -48,17 +48,12 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(req.body)
   const { name, date, category, amount } = req.body
-  // const records = String(req.body.name).split(',').map(record => ({ name: record }))
-  // Record.insertMany(records).then(() => res.redirect('/'))
   Record.create({ name, date, category, amount })
     .then(() => res.redirect('/'))
     .catch(error =>
       console.log(error))
 }
 )
-
-
 
 module.exports = router
