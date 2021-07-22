@@ -24,18 +24,38 @@ router.get('/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', [checkParams('name', '編輯失敗：未輸入名稱').isLength({ min: 1 }),
+checkParams('date', '編輯失敗：未選擇日期').isLength({ min: 1 }),
+checkParams('category', '編輯失敗：未選擇類別').custom(value => value !== "Select"),
+checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
+], (req, res) => {
   const id = req.params.id
-  return Record.findById(id)
-    .then(record => {
-      record.name = req.body.name
-      record.date = req.body.date
-      record.category = req.body.category
-      record.amount = req.body.amount
-      return record.save()
-    })
-    .then(() => res.redirect(`/`))
-    .catch(error => console.log(error))
+  const errorsResult = validationResult(req)
+  if (!errorsResult.isEmpty()) {
+    const { name, date, category, amount } = req.body
+    console.log(req.body)
+    const errorMsg = errorsResult.array()
+    return Record.findById(id)
+      .lean()
+      .then(record => {
+        //使用moment處理日期
+        record.date = moment(record.date).format('YYYY-MM-DD')
+        res.render('edit', { name, date, category, amount, record, errorMsg: errorMsg })
+      })
+
+
+  } else {
+    return Record.findById(id)
+      .then(record => {
+        record.name = req.body.name
+        record.date = req.body.date
+        record.category = req.body.category
+        record.amount = req.body.amount
+        return record.save()
+      })
+      .then(() => res.redirect(`/`))
+      .catch(error => console.log(error))
+  }
 })
 
 //delete

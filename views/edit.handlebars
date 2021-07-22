@@ -1,3 +1,13 @@
+{{#each errorMsg}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{this.msg}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{{/each}}
+
+
 <div class="container mt-5">
   <div class="col-md-6 d-flex justify-content-center">
     <div class="col-auto">
@@ -11,19 +21,22 @@
   <form action="/records/{{ record._id }}?_method=PUT" method="POST" class="mt-3">
     <div class="row mb-3">
       <label for="inputName" class="form-label col-12 col-md-2" style="font-size: 20px">名稱* :</label>
-      <input type="string" class="form-control ml-2  col-12 col-md-8" name="name" value={{record.name}}>
+      <input type="string" class="form-control ml-2  col-12 col-md-8" name="name" value={{#if name}} {{ name }}
+        {{else}}{{record.name}}{{/if}}>
     </div>
 
     <form class="mt-3">
       <div class="row mb-3">
         <label for="inputDate" class="form-label col-12 col-md-2" style="font-size: 20px">日期* :</label>
-        <input type="date" class="form-control ml-2  col-12 col-md-8" name="date" value={{record.date}}>
+        <input type="date" class="form-control ml-2  col-12 col-md-8" name="date" value={{#if name}} {{ date }}
+          {{else}}{{record.date}}{{/if}}>
       </div>
 
 
       <div class="row  mb-3">
         <label for="inputCategory" class="form-label col-12 col-md-2" style="font-size: 20px">類別* :</label>
         <select name="category" class="form-select form-control ml-2  col-12 col-md-8">
+
           {{!-- 為何自定義handlebars helper無法比較兩個變數? --}}
           <option>Select</option>
           <option {{#if (isEqual record.category '家居物業' )}}selected{{/if}}> 家居物業
@@ -43,7 +56,8 @@
       <form class="mt-3">
         <div class="row mb-3">
           <label for="inputAmount" class="form-label col-12 col-md-2" style="font-size: 20px">金額* :</label>
-          <input type="number" class="form-control ml-2  col-12 col-md-8" name="amount" value={{record.amount}}>
+          <input type="number" class="form-control ml-2  col-12 col-md-8" name="amount" value={{#if name}} {{ amount }}
+            {{else}}{{record.amount}}{{/if}}>
         </div>
 
         <div class="col-12 mt-3 " style="text-align:center;">

@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
           }
         })
       })
-      res.render('index', { records, totalAmount })
+      res.render('index', { records, totalAmount, categories })
     })
     .catch(error => console.error(error))
 })
