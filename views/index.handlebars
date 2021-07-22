@@ -18,7 +18,6 @@
     <div class="col-md-6 text-align-center" style=" color: orange; font-weight: bold; font-size: 120px ">
       {{totalAmount}}
     </div>
-
   </div>
 
 
@@ -34,7 +33,6 @@
               <div class="col-2 " style="padding:0">
                 <i class="{{ this.icon }}" style="font-size:40px;color:lightblue"></i>
               </div>
-
               <div class="align-items-center">
                 <h4 style="align-items: center;  font-weight:bold">
                   {{ this.name }}
@@ -47,13 +45,9 @@
                 <div style="font-size:30px; font-weight:bold">{{ this.amount }}</div>
               </div>
             </div>
-
-
-
           </li>
         </ul>
       </div>
-
 
       <div class="d-flex align-items-center">
         <form action="./records/{{ this._id }}/edit">
@@ -69,7 +63,13 @@
     </div>
 
     {{/each}}
+  </div>
 
+
+  <div class="mt-5" style="text-align:center;">
+    <form action="./records/new">
+      <button class="btn btn-danger btn-lg" type="submit">新增支出</button>
+    </form>
   </div>
 
   {{!-- 控制List顏色 --}}

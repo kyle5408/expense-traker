@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const moment = require('moment')
+
 const Record = require('../../models/record')
-
-
-
+const Category = require('../../config/category.json')
+const categories = Category.results
 
 //edit
 router.get('/:id/edit', (req, res) => {
@@ -41,5 +41,24 @@ router.delete('/:id', (req, res) => {
     .then(() => res.redirect("/"))
     .catch(error => console.log(error))
 })
+
+//new
+router.get('/new', (req, res) => {
+  return res.render('new', { categories })
+})
+
+router.post('/', (req, res) => {
+  console.log(req.body)
+  const { name, date, category, amount } = req.body
+  // const records = String(req.body.name).split(',').map(record => ({ name: record }))
+  // Record.insertMany(records).then(() => res.redirect('/'))
+  Record.create({ name, date, category, amount })
+    .then(() => res.redirect('/'))
+    .catch(error =>
+      console.log(error))
+}
+)
+
+
 
 module.exports = router
