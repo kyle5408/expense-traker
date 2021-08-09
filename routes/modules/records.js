@@ -32,14 +32,14 @@ checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
   const id = req.params.id
   const errorsResult = validationResult(req)
   if (!errorsResult.isEmpty()) {
-    const { name, date, amount } = req.body
+    const { name, date, amount, merchant } = req.body
     const errorMsg = errorsResult.array()
     return Record.findById(id)
       .lean()
       .then(record => {
         //使用moment處理日期
         record.date = moment(record.date).format('YYYY-MM-DD')
-        res.render('edit', { name, date, amount, record, errorMsg: errorMsg })
+        res.render('edit', { name, date, amount, record, merchant, errorMsg: errorMsg })
       })
 
 
@@ -50,6 +50,7 @@ checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
         record.date = req.body.date
         record.category = req.body.category
         record.amount = req.body.amount
+        record.merchant = req.body.merchant
         return record.save()
       })
       .then(() => res.redirect('/'))
@@ -78,16 +79,16 @@ checkParams('amount', '建立失敗：金額錯誤').custom(value => value > 0)
 ], (req, res) => {
   const errorsResult = validationResult(req)
   if (!errorsResult.isEmpty()) {
-    const { name, date, category, amount } = req.body
+    const { name, date, category, amount, merchant } = req.body
     const errorMsg = errorsResult.array()
     res.render('new', {
-      name, date, category, amount,
+      name, date, category, amount, merchant,
       errorMsg: errorMsg
     })
     return
   } else {
-    const { name, date, category, amount } = req.body
-    Record.create({ name, date, category, amount })
+    const { name, date, category, amount, merchant } = req.body
+    Record.create({ name, date, category, amount, merchant })
       .then(() => res.redirect('/'))
       .catch(error =>
         console.log(error))
