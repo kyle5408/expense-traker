@@ -13,12 +13,19 @@ router.post('/', (req, res) => {
     .lean()
     .sort({ _id: 'asc' })
     .then(records => {
-      if (req.body.category === "Select") {
+      if (req.body.category === "Select" && req.body.month === "Select") {
         res.redirect('/')
       } else {
         //篩選
         const recordsFilter = records.filter(record => {
-          return record.category === req.body.category
+          const filterMonth = Number(req.body.month)
+          if (req.body.month === 'Select') {
+            return record.category === req.body.category
+          } else if (req.body.category === 'Select') {
+            return record.month === filterMonth
+          } else {
+            return record.category + record.month === req.body.category + req.body.month
+          }
         })
         recordsFilter.forEach(record => {
           totalAmount += record.amount
@@ -30,7 +37,7 @@ router.post('/', (req, res) => {
             }
           })
         })
-        res.render('index', { records: recordsFilter, totalAmount, categoryFilter: req.body.category })
+        res.render('index', { records: recordsFilter, totalAmount, categoryFilter: req.body.category, monthFilter: req.body.month })
       }
     }
     )

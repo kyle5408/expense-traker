@@ -2,10 +2,40 @@
 <div class="container">
   <div name="filter-form" class="col-auto mr-auto">
     <form action="/filter" method="POST">
-      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 80%"
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 40%"
+        onchange="submit()" name="month">
+        <option value='Select'>選擇月份</option>
+        <option {{#if (isEqual monthFilter '1' )}}selected{{/if}} value='1'> Jan.
+        </option>
+        <option {{#if (isEqual monthFilter '2' )}}selected{{/if}} value='2'> Feb.
+        </option>
+        <option {{#if (isEqual monthFilter '3' )}}selected{{/if}} value='3'> Mar.
+        </option>
+        <option {{#if (isEqual monthFilter '4' )}}selected{{/if}} value='4'> Apr.
+        </option>
+        <option {{#if (isEqual monthFilter '5' )}}selected{{/if}} value='5'> May
+        </option>
+        <option {{#if (isEqual monthFilter '6' )}}selected{{/if}} value='6'> Jun.
+        </option>
+        <option {{#if (isEqual monthFilter '7' )}}selected{{/if}} value='7'> Jul.
+        </option>
+        <option {{#if (isEqual monthFilter '8' )}}selected{{/if}} value='8'> Aug.
+        </option>
+        <option {{#if (isEqual monthFilter '9' )}}selected{{/if}} value='9'> Sep.
+        </option>
+        <option {{#if (isEqual monthFilter '10' )}}selected{{/if}} value='10'> Oct.
+        </option>
+        <option {{#if (isEqual monthFilter '11' )}}selected{{/if}} value='11'> Nov.
+        </option>
+        <option {{#if (isEqual monthFilter '12' )}}selected{{/if}} value='12'> Dec.
+        </option>
+      </select>
+
+
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width: 40%"
         onchange="submit()" name="category">
         {{!-- 為何自定義handlebars helper無法比較兩個變數? --}}
-        <option>Select</option>
+        <option value='Select'>選擇類別</option>
         <option {{#if (isEqual categoryFilter '家居物業' )}}selected{{/if}}> 家居物業
         </option>
         <option {{#if (isEqual categoryFilter '交通出行' )}}selected{{/if}}> 交通出行

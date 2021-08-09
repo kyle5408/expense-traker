@@ -19,6 +19,9 @@ const recordSchema = new Schema({
     type: Date,
     require: true,
   },
+  month: {
+    type: Number,
+  },
   amount: {
     type: Number,
     require: true,

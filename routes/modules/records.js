@@ -41,8 +41,6 @@ checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
         record.date = moment(record.date).format('YYYY-MM-DD')
         res.render('edit', { name, date, amount, record, merchant, errorMsg: errorMsg })
       })
-
-
   } else {
     return Record.findById(id)
       .then(record => {
@@ -51,6 +49,7 @@ checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
         record.category = req.body.category
         record.amount = req.body.amount
         record.merchant = req.body.merchant
+        record.month = record.date.getMonth() + 1
         return record.save()
       })
       .then(() => res.redirect('/'))
@@ -88,7 +87,9 @@ checkParams('amount', '建立失敗：金額錯誤').custom(value => value > 0)
     return
   } else {
     const { name, date, category, amount, merchant } = req.body
-    Record.create({ name, date, category, amount, merchant })
+    const dateForMonth = new Date(req.body.date)
+    month = dateForMonth.getMonth() + 1
+    Record.create({ name, date, category, amount, merchant, month })
       .then(() => res.redirect('/'))
       .catch(error =>
         console.log(error))
