@@ -1,3 +1,4 @@
+// ------------- 基本設定-------------
 const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
@@ -5,11 +6,11 @@ const methodOverride = require('method-override')
 const app = express()
 const routes = require('./routes')
 const session = require('express-session')
-const usePassport = ('./config/passport')
+const usePassport = require('./config/passport')
+const PORT = process.env.PORT || 3000
 require('./config/mongoose')
 
-const PORT = process.env.PORT || 3000
-
+// ------------ 設定使用-------------
 app.engine('handlebars', exphbs({
   defaultLayout: 'main', helpers: {
     isEqual: function (arg1, arg2) {
@@ -28,8 +29,10 @@ app.use(session({
 }))
 usePassport(app)
 
+// ------------- 路由&回應-------------
 app.use(routes)
 
+//--------------啟動並監聽伺服器-------------
 app.listen(PORT, () => {
   console.log(`The server is running in http://localhost:${PORT}`)
 })
