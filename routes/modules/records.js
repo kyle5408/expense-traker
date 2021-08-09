@@ -13,8 +13,9 @@ const validationResult = require('express-validator').validationResult
 
 //edit
 router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  return Record.findOne({ _id, userId })
     .lean()
     .then(record => {
       //使用moment處理日期
@@ -29,12 +30,13 @@ checkParams('date', '編輯失敗：未選擇日期').isLength({ min: 1 }),
 checkParams('category', '編輯失敗：類別無法為空').custom(value => value !== "Select"),
 checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
 ], (req, res) => {
-  const id = req.params.id
+  const _id = req.params.id
+  const userId = req.user._id
   const errorsResult = validationResult(req)
   if (!errorsResult.isEmpty()) {
     const { name, date, amount, merchant } = req.body
     const errorMsg = errorsResult.array()
-    return Record.findById(id)
+    return Record.findOne({ _id, userId })
       .lean()
       .then(record => {
         //使用moment處理日期
@@ -42,7 +44,7 @@ checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
         res.render('edit', { name, date, amount, record, merchant, errorMsg: errorMsg })
       })
   } else {
-    return Record.findById(id)
+    return Record.findOne({ _id, userId })
       .then(record => {
         record.name = req.body.name
         record.date = req.body.date
@@ -59,8 +61,9 @@ checkParams('amount', '編輯失敗：金額錯誤').custom(value => value > 0)
 
 //delete
 router.delete('/:id', (req, res) => {
-  const id = req.params.id
-  return Record.findById(id)
+  const _id = req.params.id
+  const userId = req.user._id
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect("/"))
     .catch(error => console.log(error))
@@ -88,8 +91,9 @@ checkParams('amount', '建立失敗：金額錯誤').custom(value => value > 0)
   } else {
     const { name, date, category, amount, merchant } = req.body
     const dateForMonth = new Date(req.body.date)
+    const userId = req.user._id
     month = dateForMonth.getMonth() + 1
-    Record.create({ name, date, category, amount, merchant, month })
+    Record.create({ name, date, category, amount, merchant, month, userId })
       .then(() => res.redirect('/'))
       .catch(error =>
         console.log(error))

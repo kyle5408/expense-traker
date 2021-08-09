@@ -7,7 +7,8 @@ const categories = Category.results
 
 router.get('/', (req, res) => {
   let totalAmount = 0
-  Record.find()
+  const userId = req.user._id
+  Record.find({ userId })
     .lean()
     .sort({ _id: 'asc' })
     .then(records => {
