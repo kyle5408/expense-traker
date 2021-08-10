@@ -14,5 +14,3 @@ db.once('open', () => {
   })
   console.log('Category update successful!')
 })
-
-

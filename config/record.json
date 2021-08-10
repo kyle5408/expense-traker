@@ -34,6 +34,13 @@
       "icon": "fas fa-pen",
       "date": "2021/7/27",
       "amount": "2500"
+    },
+    {
+      "name": "看電影",
+      "icon": "fas fa-grin-beam",
+      "date": "2021/8/20",
+      "merchant": "國賓電影院",
+      "amount": "300"
     }
   ]
 }

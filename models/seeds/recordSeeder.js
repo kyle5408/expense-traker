@@ -1,24 +1,70 @@
 const Record = require('../record')
+const User = require('../user')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const db = require('../../config/mongoose')
 
-const recordList = require('../../config/record.json')
-const recordSeed = recordList.results
+const seedList = require('../../config/record.json')
+const seed = seedList.results
+const bcrypt = require('bcryptjs')
 
-const categoryList = require('../../config/category.json')
-const categorySeed = categoryList.results
+const SEED_USERS = [{
+  name: 'tester',
+  email: 'test@test',
+  password: 'test',
+  recordLists: seed.slice(0, 3)
+},
+{
+  name: 'tryer',
+  email: 'try@try',
+  password: 'try',
+  recordLists: seed.slice(3, 6)
+},
+]
+
 
 db.once('open', () => {
-  recordSeed.forEach(record => {
-    //與categorySeed比對找出icon值
-    const sortIcon = categorySeed.filter(category => category.name === record.category)[0].icon
-    Record.create({
-      name: record.name,
-      icon: sortIcon,
-      category: record.category,
-      date: record.date,
-      amount: record.amount,
+  Promise.all(
+    Array.from(SEED_USERS, (SEED_USER, i) => {
+      return bcrypt
+        .genSalt(10)
+        .then(salt => bcrypt.hash(SEED_USER.password, salt))
+        .then(hash =>
+          User.create({
+            name: SEED_USER.name,
+            email: SEED_USER.email,
+            password: hash
+          })
+        )
+        .then(user => {
+          const recordList = SEED_USER.recordLists
+          return Promise.all(
+            Array.from(recordList, (record, i) => {
+              const { name, icon, category, date, amount, merchant } = record
+              const dateForMonth = new Date(record.date)
+              const month = dateForMonth.getMonth() + 1
+              const userId = user._id
+              return Record.create({ name, icon, category, date, amount, month, merchant, userId })
+            }
+            )
+          )
+        })
+
     })
-  })
-  console.log('Record update successful!')
+  )
+    .then(() => {
+      console.log('Record update successful!')
+      process.exit()
+    })
+    .catch(err => console.log(err))
 })
+
+
+
+
+
+
+
+

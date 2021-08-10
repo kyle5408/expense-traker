@@ -8,10 +8,9 @@ const routes = require('./routes')
 const session = require('express-session')
 const flash = require('connect-flash')
 const usePassport = require('./config/passport')
-if (AudioProcessingEvent.env.NODE_ENV !== 'production') {
-  require('dotnev').config()
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
 }
-
 const PORT = process.env.PORT
 require('./config/mongoose')
 
