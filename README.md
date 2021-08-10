@@ -1,9 +1,9 @@
 # expense tracker
 利用Node.js + Express打造的簡易支出記帳網站
 
-Heroku[heroku](https://glacial-tor-24831.herokuapp.com/users/login)
-email: try@try
-password: try
+- [Heroku](https://glacial-tor-24831.herokuapp.com/users/login)
+- email: try@try
+- password: try
 
 ![](https://i.imgur.com/3X5iVAp.jpg)
 
