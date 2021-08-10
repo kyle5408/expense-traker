@@ -8,7 +8,11 @@ const routes = require('./routes')
 const session = require('express-session')
 const flash = require('connect-flash')
 const usePassport = require('./config/passport')
-const PORT = process.env.PORT || 3000
+if (AudioProcessingEvent.env.NODE_ENV !== 'production') {
+  require('dotnev').config()
+}
+
+const PORT = process.env.PORT
 require('./config/mongoose')
 
 // ------------ 設定使用-------------
@@ -24,7 +28,7 @@ app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
