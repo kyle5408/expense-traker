@@ -12,5 +12,10 @@ db.once('open', () => {
       icon: category.icon
     })
   })
-  console.log('Category update successful!')
+    .then(() => {
+      console.log('Category update successful!')
+      process.exit()
+    })
+    .catch(err => console.log(err))
+
 })
